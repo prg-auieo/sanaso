@@ -1,7 +1,7 @@
 const dpath = `./audios/`
 const audiolist = {}
 const ctx = new AudioContext()
-let isalt = false
+let ispush = false
 
 
 function playaudio(audio,name) {
@@ -53,15 +53,15 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     document.addEventListener("keyup",(ev)=>{
         const key = String(ev.key)
-        if (key == "Alt") isalt = false
+        if (key == "Hankaku") ispush = false
     })
     document.addEventListener("keydown",(ev)=>{
         const key = String(ev.key)
-        if ( key == "Alt") {
-            isalt = true
+        if ( key == "Hankaku") {
+            ispush = true
             return
         }
-        if (!isalt) return
+        if (!ispush) return
         Object.values(audiolist).filter((v)=>{return v.key == key}).forEach((v)=>{
             playaudio(v.filename,v.name)
             document.querySelectorAll(`button[data-key="${key}"]`).forEach((e)=>{
