@@ -1,3 +1,4 @@
+// 三送会のためだけに作るものじゃないよなこれ....()()
 const dpath = `./audios/`
 const audiolist = {}
 const ctx = new AudioContext()
@@ -99,5 +100,11 @@ document.addEventListener("DOMContentLoaded",()=>{
                 setTimeout(()=>{e.classList.remove("jsclick")},1000*0.1)
             })
         })
+    })
+
+
+    document.getElementById("clearlog").addEventListener("click",()=>{
+        document.getElementById("statusbar").textContent = ""
+        console.log("Cleared Log")
     })
 })
