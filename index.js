@@ -3,6 +3,7 @@ const audiolist = {}
 const ctx = new AudioContext()
 let ispush = false
 
+const sourcelist = []
 
 function playaudio(audio,name) {
     if (!audiolist[audio].isgot) {
@@ -14,6 +15,11 @@ function playaudio(audio,name) {
     source.buffer = audiolist[audio].data;
     source.connect(ctx.destination);
     source.start(); // ← 再生
+    document.getElementById("statusbar").innerText = `[${audio}](${name}) Playing...\n${document.getElementById("statusbar").innerText}`      
+    const i = sourcelist.push(source)
+    source.addEventListener("ended",()=>{
+        sourcelist.splice(i,1)
+    })
 
 }
 
@@ -21,17 +27,29 @@ document.addEventListener("DOMContentLoaded",()=>{
     const audios = document.getElementById("buttons").querySelectorAll("button")
 
     audios.forEach((v)=>{
-        const {audio,name,key} =  v.dataset
-        v.textContent = name
-
-        const json = {"filename":audio,"name":name,"isgot":false,"data":null,"key":key}
-        audiolist[audio] = json
+        const {audio,name,key,type} =  v.dataset
+        if (type !== "stop") {
+            
+            
         
+            v.textContent = name
+
+            const json = {"filename":audio,"name":name,"isgot":false,"data":null,"key":key}
+            audiolist[audio] = json
+        }
         
         v.addEventListener("click",(ev)=>{
             const ele = ev.target
-            const {audio,name} =  ele.dataset
-            playaudio(audio,name)
+            const {audio,name,type} =  ele.dataset
+            if (type == "stop") {
+                sourcelist.forEach((v,i)=>{
+                    v.stop()
+                    sourcelist.splice(i,1)
+                })
+                document.getElementById("statusbar").innerText = `[All Audio Stoped]\n${document.getElementById("statusbar").innerText}`      
+            } else {
+                playaudio(audio,name)
+            }
         })
     })
     const list = Object.values(audiolist)
@@ -45,7 +63,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                     audiolist[v.filename].isgot = true
                     console.log(`Loaded:%c${v.filename}(${v.name})`,"color:red;")
                     i++
-                    document.getElementById("statusbar").innerText = `${document.getElementById("statusbar").innerText}\n[${v.filename}] 読み込み完了`      
+                    document.getElementById("statusbar").innerText = `[${v.filename}] 読み込み完了\n${document.getElementById("statusbar").innerText}`      
                 })
             })
         })
@@ -53,11 +71,11 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     document.addEventListener("keyup",(ev)=>{
         const key = String(ev.key)
-        if (key == "Hankaku") ispush = false
+        if (key == "a") ispush = false
     })
     document.addEventListener("keydown",(ev)=>{
         const key = String(ev.key)
-        if ( key == "Hankaku") {
+        if ( key == "a") {
             ispush = true
             return
         }

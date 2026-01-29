@@ -54,3 +54,7 @@ button.jsclick {
 footer {
     text-align: center;
 }
+
+button[data-type="stop"] {
+    background-color: #db5959;
+}
