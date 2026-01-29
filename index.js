@@ -42,11 +42,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     audios.forEach((v)=>{
         const {audio,name,key,type} =  v.dataset
         if (type !== "stop") {
-            
-            
-        
             v.textContent = name
-
             const json = {"filename":audio,"name":name,"isgot":false,"data":null,"key":key}
             audiolist[audio] = json
         }
@@ -62,7 +58,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
     })
     const list = Object.values(audiolist)
-    list.forEach((v,i)=>{
+    list.forEach((v,i,a)=>{
         const url = `${dpath}${v.filename}`
         fetch(url).then((res)=>{
             res.arrayBuffer().then((buf)=>{
@@ -70,8 +66,8 @@ document.addEventListener("DOMContentLoaded",()=>{
                     audiolist[v.filename].data = audioBuffer
                     audiolist[v.filename].isgot = true
                     console.log(`Loaded:%c${v.filename}(${v.name})`,"color:red;")
-                    document.getElementById("statusbar").innerText = `[${v.filename}] 読み込み完了\n${document.getElementById("statusbar").innerText}` 
-                    if (list.length-1 == i) document.getElementById("statusbar").innerText = `===Load Completed===\n${document.getElementById("statusbar").innerText}`      
+                    document.getElementById("statusbar").innerText = `[${v.filename}] Loaded...\n${document.getElementById("statusbar").innerText}` 
+                    if (a.length == i+1) document.getElementById("statusbar").innerText = `===Load Completed===\n${document.getElementById("statusbar").innerText}`      
                 })
             })
         })

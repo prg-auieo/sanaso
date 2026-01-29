@@ -36,6 +36,7 @@ button {
 }
 button:active {
     border-radius: 100px;
+    background-color: #59a7db;
     box-shadow: #346f81 5px 5px 10px;
 }
 #statusbar {
@@ -57,6 +58,7 @@ button:active {
 button.jsclick {
     border-radius: 100px;
     box-shadow: #346f81 5px 5px 10px;
+    background-color: #59a7db;
 }
 footer {
     text-align: center;
