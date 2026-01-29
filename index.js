@@ -6,9 +6,9 @@ let ispush = false
 const sourcelist = []
 
 function stopaudio() {
-    sourcelist.forEach((v,i)=>{
-        v.stop()
-        sourcelist.splice(i,1)
+    sourcelist.forEach((v)=>{
+        v.source.stop()
+        
     })
     document.getElementById("statusbar").innerText = `[All Audio Stoped]\n${document.getElementById("statusbar").innerText}`      
 
@@ -24,10 +24,13 @@ function playaudio(audio,name) {
     source.buffer = audiolist[audio].data;
     source.connect(ctx.destination);
     source.start(); // ← 再生
-    document.getElementById("statusbar").innerText = `[${audio}](${name}) Playing...\n${document.getElementById("statusbar").innerText}`      
-    const i = sourcelist.push(source)
+    document.getElementById("statusbar").innerText = `Playing... [${audio}]\n${document.getElementById("statusbar").innerText}`
+    const uuid = crypto.randomUUID()
+    const entry = { source,uuid };
+    sourcelist.push(entry);
     source.addEventListener("ended",()=>{
-        sourcelist.splice(i,1)
+        const idx = sourcelist.indexOf(entry);
+        if (idx !== -1) sourcelist.splice(idx, 1);
     })
 
 }
@@ -58,8 +61,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
     })
     const list = Object.values(audiolist)
-    let i = 0
-    list.forEach(async(v)=>{
+    list.forEach((v,i)=>{
         const url = `${dpath}${v.filename}`
         fetch(url).then((res)=>{
             res.arrayBuffer().then((buf)=>{
@@ -67,12 +69,13 @@ document.addEventListener("DOMContentLoaded",()=>{
                     audiolist[v.filename].data = audioBuffer
                     audiolist[v.filename].isgot = true
                     console.log(`Loaded:%c${v.filename}(${v.name})`,"color:red;")
-                    i++
-                    document.getElementById("statusbar").innerText = `[${v.filename}] 読み込み完了\n${document.getElementById("statusbar").innerText}`      
+                    document.getElementById("statusbar").innerText = `[${v.filename}] 読み込み完了\n${document.getElementById("statusbar").innerText}` 
+                    if (list.length-1 == i) document.getElementById("statusbar").innerText = `===Load Completed===\n${document.getElementById("statusbar").innerText}`      
                 })
             })
         })
     })
+     
 
     document.addEventListener("keyup",(ev)=>{
         const key = String(ev.key)

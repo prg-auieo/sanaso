@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=WDXL+Lubrifont+JP+N&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
 
 
 body {
@@ -7,9 +7,9 @@ body {
     background-color: #a4a4a4;
 }
 * {
-  font-family: "WDXL Lubrifont JP N", "Bungee", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+    font-family: "Yusei Magic", sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
 h1 {
     text-align: center;
@@ -62,4 +62,10 @@ footer {
 
 button[data-type="stop"] {
     background-color: #db5959;
+}
+#hint {
+    opacity: 0.3;
+    position: absolute;
+    bottom: 0;
+    right:0;
 }
