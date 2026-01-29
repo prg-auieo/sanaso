@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded",()=>{
         Object.values(audiolist).filter((v)=>{return v.key == key}).forEach((v)=>{
             playaudio(v.filename,v.name)
             document.querySelectorAll(`button[data-key="${key}"]`).forEach((e)=>{
-
                 e.classList.add("jsclick")
                 setTimeout(()=>{e.classList.remove("jsclick")},1000*0.1)
             })

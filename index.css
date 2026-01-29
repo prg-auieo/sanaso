@@ -16,7 +16,7 @@ h1 {
 }
 main {
     width: 100%;
-    margin-bottom: 10vh;
+    margin-bottom: 5vh;
     border-top: 2px dashed #000;
     border-bottom: 1px solid #000;
     display: flex;
@@ -46,6 +46,11 @@ button:active {
     padding-right: 10vw;
     max-width: 100vw;
     font-size: x-large;
+    max-height: 30vh;
+    overflow-y: auto;
+    background-color: #8e8e8e;
+    border-radius: 20px;
+    box-shadow: 3px 5px 8px 0px rgba(208, 90, 90, 0.55);
 }
 button.jsclick {
     border-radius: 100px;
