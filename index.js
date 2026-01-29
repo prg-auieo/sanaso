@@ -5,6 +5,15 @@ let ispush = false
 
 const sourcelist = []
 
+function stopaudio() {
+    sourcelist.forEach((v,i)=>{
+        v.stop()
+        sourcelist.splice(i,1)
+    })
+    document.getElementById("statusbar").innerText = `[All Audio Stoped]\n${document.getElementById("statusbar").innerText}`      
+
+}
+
 function playaudio(audio,name) {
     if (!audiolist[audio].isgot) {
         alert(`【${name}】はまだ準備中です`)
@@ -42,11 +51,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             const ele = ev.target
             const {audio,name,type} =  ele.dataset
             if (type == "stop") {
-                sourcelist.forEach((v,i)=>{
-                    v.stop()
-                    sourcelist.splice(i,1)
-                })
-                document.getElementById("statusbar").innerText = `[All Audio Stoped]\n${document.getElementById("statusbar").innerText}`      
+                stopaudio()
             } else {
                 playaudio(audio,name)
             }
@@ -80,6 +85,10 @@ document.addEventListener("DOMContentLoaded",()=>{
             return
         }
         if (!ispush) return
+        if (key == document.querySelector(`button[data-type="stop"]`).dataset.key) {
+            stopaudio()
+            return
+        }
         Object.values(audiolist).filter((v)=>{return v.key == key}).forEach((v)=>{
             playaudio(v.filename,v.name)
             document.querySelectorAll(`button[data-key="${key}"]`).forEach((e)=>{
