@@ -47,6 +47,13 @@ document.addEventListener("DOMContentLoaded",()=>{
             audiolist[audio] = json
         }
         
+        if (key) {
+            const keyele = document.createElement("span")
+            keyele.textContent+= `\n${key}`
+            keyele.classList.add("key")
+            v.appendChild(keyele)
+        }
+        
         v.addEventListener("click",(ev)=>{
             const ele = ev.target
             const {audio,name,type} =  ele.dataset

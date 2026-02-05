@@ -33,11 +33,27 @@ button {
     margin: 6px;
     font-size:xx-large;
     user-select: none;
+    position: relative;
+}
+.key {
+    font-size: small;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    width: max-content;
+    height: max-content;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px dashed #000;
 }
 button:active {
     border-radius: 100px;
     background-color: #59a7db;
     box-shadow: #346f81 5px 5px 10px;
+}
+button p {
+    position:relatiqs
+    
 }
 #statusbar {
     border: 1px dashed #000;
@@ -92,6 +108,9 @@ button[data-type="stop"] {
         display: block;
     }
     #hint {
+        display: none;
+    }
+    .key {
         display: none;
     }
 }
