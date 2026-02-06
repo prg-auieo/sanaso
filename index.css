@@ -46,11 +46,15 @@ button {
     padding-right: 5px;
     border: 1px dashed #000;
 }
+button:hover {
+    background-color: #5ee6ad;
+}
 button:active {
     border-radius: 100px;
-    background-color: #59a7db;
+    background-color: #59dbd0;
     box-shadow: #346f81 5px 5px 10px;
 }
+
 button p {
     position:relatiqs
     
