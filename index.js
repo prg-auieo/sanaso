@@ -65,16 +65,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
     })
     const list = Object.values(audiolist)
+    let i = 0
     list.forEach((v,i,a)=>{
         const url = `${dpath}${v.filename}`
+        i++
         fetch(url).then((res)=>{
             res.arrayBuffer().then((buf)=>{
                 ctx.decodeAudioData(buf).then((audioBuffer)=>{
                     audiolist[v.filename].data = audioBuffer
                     audiolist[v.filename].isgot = true
                     console.log(`Loaded:%c${v.filename}(${v.name})`,"color:red;")
-                    document.getElementById("statusbar").innerText = `[${v.filename}] Loaded...\n${document.getElementById("statusbar").innerText}` 
-                    if (a.length == i+1) document.getElementById("statusbar").innerText = `===Load Completed===\n${document.getElementById("statusbar").innerText}`      
+                    document.getElementById("statusbar").innerText = `[${v.filename}] Loaded...\n${document.getElementById("statusbar").innerText}`
+                    i--
+                    if (i == 0) document.getElementById("statusbar").innerText = `===Load Completed===\n${document.getElementById("statusbar").innerText}`      
                 })
             })
         })
