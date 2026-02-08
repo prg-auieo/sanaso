@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     })
     const list = Object.values(audiolist)
     let i = 0
-    list.forEach((v,i,a)=>{
+    list.forEach((v)=>{
         const url = `${dpath}${v.filename}`
         i++
         fetch(url).then((res)=>{
