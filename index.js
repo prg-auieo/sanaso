@@ -8,9 +8,10 @@ const sourcelist = []
 
 function stopaudio() {
     sourcelist.forEach((v)=>{
-        v.source.stop()
-        
+        v.source.stop()        
     })
+    document.getElementById("nowplaying").textContent = sourcelist.length
+
     document.getElementById("statusbar").innerText = `[All Audio Stoped]\n${document.getElementById("statusbar").innerText}`      
 
 }
@@ -29,9 +30,12 @@ function playaudio(audio,name) {
     const uuid = crypto.randomUUID()
     const entry = { source,uuid };
     sourcelist.push(entry);
+    document.getElementById("nowplaying").textContent = sourcelist.length
     source.addEventListener("ended",()=>{
         const idx = sourcelist.indexOf(entry);
         if (idx !== -1) sourcelist.splice(idx, 1);
+        document.getElementById("nowplaying").textContent = sourcelist.length
+
     })
 
 }
@@ -69,6 +73,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     list.forEach((v)=>{
         const url = `${dpath}${v.filename}`
         i++
+        document.getElementById("nowloading").textContent = i
+
         fetch(url).then((res)=>{
             res.arrayBuffer().then((buf)=>{
                 ctx.decodeAudioData(buf).then((audioBuffer)=>{
@@ -77,6 +83,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                     console.log(`Loaded:%c${v.filename}(${v.name})`,"color:red;")
                     document.getElementById("statusbar").innerText = `[${v.filename}] Loaded...\n${document.getElementById("statusbar").innerText}`
                     i--
+                    document.getElementById("nowloading").textContent = i
                     if (i == 0) document.getElementById("statusbar").innerText = `===Load Completed===\n${document.getElementById("statusbar").innerText}`      
                 })
             })

@@ -100,6 +100,9 @@ button[data-type="stop"] {
     font-size: medium;
     background: none;
 }
+.center {
+    text-align: center;
+}
 @media (max-width: 425px) {
     button {
         width: max-content;
