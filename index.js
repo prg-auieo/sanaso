@@ -28,7 +28,7 @@ function playaudio(audio,name) {
     source.start(); // ← 再生
     document.getElementById("statusbar").innerText = `Playing... [${audio}]\n${document.getElementById("statusbar").innerText}`
     const uuid = crypto.randomUUID()
-    const entry = { source,uuid };
+    const entry = { source,uuid,name };
     sourcelist.push(entry);
     document.getElementById("nowplaying").textContent = sourcelist.length
     source.addEventListener("ended",()=>{

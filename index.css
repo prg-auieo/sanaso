@@ -47,7 +47,7 @@ button {
     border: 1px dashed #000;
 }
 button:hover {
-    background-color: #5ee6ad;
+    background-color: #65e65e;
 }
 button:active {
     border-radius: 100px;
