@@ -2,7 +2,7 @@
 const dpath = `./audios/`
 const audiolist = {}
 const ctx = new AudioContext()
-let ispush = false
+// let ispush = false
 
 const sourcelist = []
 
@@ -91,17 +91,17 @@ document.addEventListener("DOMContentLoaded",()=>{
     })
      
 
-    document.addEventListener("keyup",(ev)=>{
-        const key = String(ev.key)
-        if (key == "a") ispush = false
-    })
+    // document.addEventListener("keyup",(ev)=>{
+    //     const key = String(ev.key)
+    //     if (key == "a") ispush = false
+    // })
     document.addEventListener("keydown",(ev)=>{
         const key = String(ev.key)
-        if ( key == "a") {
-            ispush = true
-            return
-        }
-        if (!ispush) return
+        // if ( key == "a") {
+        //     ispush = true
+        //     return
+        // }
+        // if (!ispush) return
         if (key == document.querySelector(`button[data-type="stop"]`).dataset.key) {
             stopaudio()
             return
